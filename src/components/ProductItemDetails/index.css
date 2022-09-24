@@ -1,0 +1,76 @@
+.productDetailCardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 72vh;
+  margin-top: 20px;
+}
+.imageCardContainer {
+  display: flex;
+  width: 40vw;
+  justify-content: center;
+}
+.productDetailsContainer {
+  display: flex;
+  width: 40vw;
+  flex-direction: column;
+  margin: none;
+}
+.productImage {
+  display: flex;
+  width: 90%;
+  height: 100%;
+  border-radius: 15px;
+}
+.star {
+  color: white;
+}
+
+.ratingSpan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #4949ff;
+  width: 60px;
+  padding: 5px;
+  color: white;
+  font-weight: bolder;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.reviewPara {
+  display: flex;
+  align-items: center;
+}
+
+.buttonContainer {
+  width: 8vw;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.addToCartButton {
+  padding: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  align-self: flex-start;
+  border-radius: 5px;
+  border: none;
+  background-color: #4949ff;
+  color: white;
+}
+
+.similarProductsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5vh;
+  width: 80vw;
+  justify-content: center;
+  margin-left: 10vw;
+}
+
+.similarItemsContainer {
+  display: flex;
+}
