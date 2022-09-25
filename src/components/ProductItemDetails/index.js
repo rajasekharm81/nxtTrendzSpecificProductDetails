@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {AiFillStar} from 'react-icons/ai'
+import {BsPlusSquare, BsDashSquare} from 'react-icons/bs'
 import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 
@@ -31,7 +32,7 @@ class ProductItemDetails extends Component {
 
   decreaseCount = () => {
     const {qty} = this.state
-    if (qty > 0) {
+    if (qty > 1) {
       this.setState(prevState => ({
         qty: prevState.qty - 1,
       }))
@@ -72,31 +73,31 @@ class ProductItemDetails extends Component {
             <img
               className="productImage"
               src={productDetail.image_url}
-              alt={productDetail.title}
+              alt="product"
             />
           </div>
           <div className="productDetailsContainer">
             <h1>{productDetail.title}</h1>
             <p>Rs {productDetail.price}/-</p>
-            <p className="reviewPara">
-              <span className="ratingSpan">
+            <div className="reviewPara">
+              <p className="ratingSpan">
                 {productDetail.rating}
                 {'  '}
                 <AiFillStar className="star" />
-              </span>
+              </p>
               {productDetail.total_reviews} Reviews
-            </p>
+            </div>
             <p>{productDetail.description}</p>
             <p>Available: {productDetail.availability}</p>
             <p>Brand: {productDetail.brand}</p>
             <hr />
             <div className="buttonContainer">
-              <button type="button" onClick={this.increaseCount}>
-                +
+              <button id="plus" type="button" onClick={this.increaseCount}>
+                <BsPlusSquare />
               </button>
-              {qty}
-              <button type="button" onClick={this.decreaseCount}>
-                -
+              <p>{qty}</p>
+              <button id="minus" type="button" onClick={this.decreaseCount}>
+                <BsDashSquare />
               </button>
             </div>
 
@@ -107,11 +108,11 @@ class ProductItemDetails extends Component {
         </div>
         <div className="similarProductsContainer">
           <h1>Similar Products</h1>
-          <div className="similarItemsContainer">
+          <ul className="similarItemsContainer">
             {similarProductDetails.map(each => (
               <SimilarProductItem key={each.id} item={each} />
             ))}
-          </div>
+          </ul>
         </div>
       </>
     )
@@ -122,10 +123,10 @@ class ProductItemDetails extends Component {
       <img
         className="noProductImage"
         src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-error-view-img.png"
-        alt="error view"
+        alt="failure view"
       />
       <h1>Product Not Found</h1>
-      <Link to="/">
+      <Link to="/products">
         <button className="ContinueShoppingButton" type="button">
           Continue Shopping
         </button>
@@ -134,7 +135,7 @@ class ProductItemDetails extends Component {
   )
 
   renderLoadingView = () => (
-    <div className="productsLoaderContainer">
+    <div id="loader" className="productsLoaderContainer">
       <Loader
         className="loader"
         type="ThreeDots"

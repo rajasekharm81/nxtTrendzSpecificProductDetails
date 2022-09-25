@@ -6,8 +6,12 @@ class SimilarProductItem extends Component {
   render() {
     const {item} = this.props
     return (
-      <div className="itemContainer">
-        <img className="similarItemImage" src={item.image_url} alt="" />
+      <li className="itemContainer">
+        <img
+          className="similarItemImage"
+          src={item.image_url}
+          alt="similar product"
+        />
         <h3>{item.title}</h3>
         <p>By {item.brand}</p>
         <div className="priceAndRatingContainer">
@@ -20,7 +24,7 @@ class SimilarProductItem extends Component {
             </span>
           </p>
         </div>
-      </div>
+      </li>
     )
   }
 }
