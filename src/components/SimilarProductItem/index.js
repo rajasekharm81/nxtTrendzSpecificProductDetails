@@ -3,13 +3,11 @@ import {AiFillStar} from 'react-icons/ai'
 import './index.css'
 
 class SimilarProductItem extends Component {
-  state = {similarItems: []}
-
   render() {
     const {item} = this.props
     return (
       <div className="itemContainer">
-        <img className="similarItemImage" src={item.image_url} />
+        <img className="similarItemImage" src={item.image_url} alt="" />
         <h3>{item.title}</h3>
         <p>By {item.brand}</p>
         <div className="priceAndRatingContainer">

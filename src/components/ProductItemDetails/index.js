@@ -1,12 +1,24 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {AiFillStar} from 'react-icons/ai'
+import {Link} from 'react-router-dom'
+import Loader from 'react-loader-spinner'
 
 import SimilarProductItem from '../SimilarProductItem'
 import './index.css'
 
+const fetchingStatusList = {
+  success: 'SUCCESS',
+  loading: 'LOADING',
+  failed: 'FAILED',
+}
 class ProductItemDetails extends Component {
-  state = {productDetail: [], similarProductDetails: [], qty: 1}
+  state = {
+    productDetail: [],
+    fetchingStatus: fetchingStatusList.loading,
+    similarProductDetails: [],
+    qty: 1,
+  }
 
   componentDidMount() {
     this.getApiResults()
@@ -28,6 +40,7 @@ class ProductItemDetails extends Component {
 
   getApiResults = async () => {
     const {location} = this.props
+    this.setState({fetchingStatus: fetchingStatusList.loading})
     const match = location
     const url = match
     const apiRequestUrl = `https://apis.ccbp.in${url.pathname}`
@@ -42,13 +55,16 @@ class ProductItemDetails extends Component {
       this.setState({
         productDetail: data,
         similarProductDetails: data.similar_products,
+        fetchingStatus: fetchingStatusList.success,
       })
+    } else if (response.status === 404) {
+      this.setState({fetchingStatus: fetchingStatusList.failed})
     }
   }
 
-  render() {
+  renderProductDetail = () => {
     const {productDetail, similarProductDetails, qty} = this.state
-    console.log(similarProductDetails)
+
     return (
       <>
         <div className="productDetailCardContainer">
@@ -99,6 +115,49 @@ class ProductItemDetails extends Component {
         </div>
       </>
     )
+  }
+
+  renderFailureView = () => (
+    <div className="noPorductFoundMainContainer">
+      <img
+        className="noProductImage"
+        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-error-view-img.png"
+        alt="error view"
+      />
+      <h1>Product Not Found</h1>
+      <Link to="/">
+        <button className="ContinueShoppingButton" type="button">
+          Continue Shopping
+        </button>
+      </Link>
+    </div>
+  )
+
+  renderLoadingView = () => (
+    <div className="productsLoaderContainer">
+      <Loader
+        className="loader"
+        type="ThreeDots"
+        color="#0b69ff"
+        height="50"
+        width="50"
+      />
+    </div>
+  )
+
+  render() {
+    const {fetchingStatus} = this.state
+
+    switch (fetchingStatus) {
+      case fetchingStatusList.loading:
+        return this.renderLoadingView()
+      case fetchingStatusList.success:
+        return this.renderProductDetail()
+      case fetchingStatusList.failed:
+        return this.renderFailureView()
+      default:
+        return null
+    }
   }
 }
 export default ProductItemDetails
